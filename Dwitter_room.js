@@ -9,11 +9,36 @@ var firebaseConfig = {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    U_name = localStorage.getItem("U_name");
+document.getElementById('U_name').innerHTML = "Welcome " + U_name +"!"
 
-function add_u() {
-      user_name = document.getElementById('u_name').value;
-      firebase.database().ref("/").child(user_name).update({
-          key:"Key"
-      })
-  }
+function add_room() {
+
+    R_name = document.getElementById('R_name').value;
+    firebase.database().ref("/").child(R_name).update({
+           purpose : "adding room name" 
+    });
+    
+    localStorage.setItem("R_name", R_name);
+    window.location = "Dwitter_page.html"
+    
+    
+    localStorage.setItem("R_name", R_name);
+    window.location = "Dwitter_page.html"
+    
+    }
+    
+    
+    
+    
+    
+    function getData() {firebase.database().ref("/").on('value', function(snapshot) {document.getElementById("output").innerHTML = "";snapshot.forEach(function(childSnapshot) {childKey  = childSnapshot.key;
+           Room_names = childKey;
+          //Start code
+          row = "<div class='room_name' id="+Room_names+" onclick='redirectToRoomName(this.id)' >#"+ Room_names +"</div><hr>";
+    
+          document.getElementById('output').innerHTML += row;
+          //End code
+          });});}
+    getData();
+        
